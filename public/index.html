@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>Puppetizer</title>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&family=Ubuntu:wght@300&family=Yusei+Magic&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta property="og:title" content="Puppetizer">
+<meta property="og:description" content="Make a show out of your issues">
+<meta property="og:image" content="https://puppetizer.web.app/img/puppetizer.png">
+<meta property="og:url" content="https://puppetizer.web.app/">
+<meta name="twitter:card" content="Make a show out of your issues">
+
+
+<!--  Non-Essential, But Recommended -->
+
+<meta property="og:site_name" content="Puppetizer">
+<meta name="twitter:image:alt" content="Make a show out of your issues">
+
+<link rel="stylesheet" href="/css/style.css">
+<script src="/js/main.js"></script>
+<body>
+<div class="app">
+    <div id="stage">
+        <div id="charecters"></div>
+        <div class="curtain left">
+            <div class="curtain-stripe"></div>
+            <div class="curtain-stripe"></div>
+            <div class="curtain-stripe"></div>
+            <div class="curtain-stripe"></div>
+            <div class="curtain-stripe"></div>
+        </div>
+        <div class="curtain right">
+            <div class="curtain-stripe"></div>
+            <div class="curtain-stripe"></div>
+            <div class="curtain-stripe"></div>
+            <div class="curtain-stripe"></div>
+            <div class="curtain-stripe"></div>
+        </div>
+        <div id="title" class="shadowed"></div>
+
+    </div>
+    <div id="subtitles"></div>
+</div>
+<div id="modal" class="modal-wrapper">
+    <div class="modal shadowed">
+        <div class="modal-header logo">
+            Puppetizer
+        </div>
+        <div class="modal-content">
+            <div>Enter a Github thread url:
+                <br><input id="url" onkeypress="javascript: if(event.keyCode == 13) loadStuff();"></div>
+            <button class="clickable" id="play" onclick="loadStuff()" disabled>Play ></button>
+        </div>
+        <div class="modal-footer"></div>
+    </div>
+</div>
+<script type="module">
+    let requestedURL = window.location.href.replace(window.location.host +'/','').replace(window.location.protocol + '//','');
+    if (requestedURL == ''){
+        requestedURL = 'https://github.com/facebook/jest/issues/10935';
+    }
+    document.getElementById("url").setAttribute("placeholder",requestedURL);
+    import { Octokit } from "https://cdn.skypack.dev/@octokit/core";
+    function loadStuff(){
+        document.getElementById("play").classList.add("loading")
+        const octokit = new Octokit();
+        let url = document.getElementById("url").value;
+        if (!url){
+            url = requestedURL;
+        }
+        url = url.replace("https://github.com/","");
+        url = url.split("/");
+        octokit.request("GET /repos/{owner}/{repo}/issues/{issue_number}", {
+            owner: url[0],
+            repo:url[1],
+            issue_number:url[3],
+        }).then((r)=>{
+            const title = r.data.title;
+            octokit.request("GET /repos/{owner}/{repo}/issues/{issue_number}/comments", {
+            owner: url[0],
+            repo:url[1],
+            issue_number:url[3],
+            }).then((r)=>{
+                createCharacters(r.data);
+                hideModal();
+                play(`${title} (${r.data.length} comments)`, r.data,);
+                document.getElementById("play").classList.remove("loading")
+            });
+        }).catch((error) => {
+            alert("not a valid Github issue (or I didn't see it coming)");
+            document.getElementById("play").classList.remove("loading")
+        });   
+        }
+    window.loadStuff = loadStuff;
+    document.getElementById("play").removeAttribute("disabled");
+</script>
+</body>
+</html>

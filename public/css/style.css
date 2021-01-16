@@ -1,0 +1,262 @@
+body, html {
+    margin:0;
+    background-color: #0968ff;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+input{
+    margin: 10px 0;
+    margin: 10px 0;
+    width: 350px;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px orange solid;
+    border-radius: 5px;
+}
+
+.app{
+    height:100vh;
+    width:100vw;
+    display: flex;
+    flex-direction: column;
+}
+
+#play{
+    border: none;
+    background-color: orange;
+    padding: 10px 30px;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.shadowed {
+    box-shadow: 5px 5px 29px -9px #000000;
+}
+
+.modal-wrapper{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+}
+.modal {
+    background-color:white;
+    border-radius: 5px;
+    padding:15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-content {
+    flex:1;
+}
+
+
+button.loading {
+    background-size: contain;
+    background-image: url(/img/loader.gif);
+    color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#stage{
+    background-repeat: repeat-x;
+    background-size: contain;
+    background-image: url(/img/stage.jpg);
+    flex:1;
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    background-color: saddlebrown;
+}
+#charecters{
+    position: absolute;
+    width: 100%;
+    height: 20%;
+    left: 0;
+    bottom: 0;
+    overflow: visible;
+
+}
+
+#subtitles{
+    height:100px;
+    width:100%;
+    background-color:black;
+    color:white;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+.puppet{
+    background-size: contain;
+    position:absolute;
+    bottom:-200px;
+    transition: bottom 1s linear;
+}
+
+.puppet-head{
+    z-index:2;
+    width:50px;
+    height:50px;
+    border-radius: 50%;
+    position: relative;
+}
+
+.puppet::before{
+    content: '';
+    position:absolute;
+    bottom:0;
+    left:50%;
+    transform: translateX(-49%) translateY(94%);
+    height:200px;
+    width:70px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index:1;
+}
+
+.puppet::after{
+    content: '';
+    position:absolute;
+    top:0;
+    left:50%;
+    transform: translateX(-50%) translateY(-23%);
+    height:100px;
+    width:47px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index:3;
+}
+
+.puppet.body-0::before{
+    background-image: url(../img/body0.png);
+    transform:translateX(-54%) translateY(92%);
+}
+
+.puppet.body-1::before{
+    background-image: url(../img/body1.png);
+    transform:translateX(-46%) translateY(92%);
+}
+
+.puppet.body-2::before{
+    background-image: url(../img/body2.png);
+    transform: translateX(-49%) translateY(90%);
+}
+
+.puppet.body-3::before{
+    background-image: url(../img/body3.png);
+}
+
+.puppet.body-4::before{
+    background-image: url(../img/body4.png);
+    transform:translateX(-35%) translateY(87%);
+}
+
+.puppet.body-5::before{
+    background-image: url(../img/body5.png);
+}
+
+.puppet.hat-0::after{
+    background-image: url(../img/hat0.png);
+}
+
+.puppet.hat-1::after{
+    background-image: url(../img/hat1.png);
+}
+
+.puppet.hat-2::after{
+    background-image: url(../img/hat2.png);
+    transform: translateX(-50%) translateY(-15%);
+}
+
+.puppet.hat-3::after{
+    background-image: url(../img/hat3.png);
+    transform: translateX(-50%) translateY(-34%);
+}
+
+.puppet.hat-4::after{
+    background-image: url(../img/hat4.png);
+    transform: translateX(-50%) translateY(-15%);
+}
+
+
+.puppet.speaking{
+    bottom:70px;
+}
+
+#title{
+    position: absolute;
+    top:-100%;
+    left:50%;
+    transform: translateX(-50%);
+    background-color:azure;
+    font-size: 28px;
+    padding:20px;
+    transition: top 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+    font-family: 'Yusei Magic', sans-serif;
+    z-index:6;
+}
+
+.logo{
+    font-family: 'East Sea Dokdo', cursive;
+    font-size: 56px;
+    color: orange;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#title.show{
+    top:0;
+}
+
+.curtain{
+    height:100%;
+    position: relative;
+    display: flex;
+    flex:1;
+    transition: transform 6s cubic-bezier(0.075, 0.82, 0.165, 1);
+    z-index:4;
+}
+
+.curtain.left.hide{
+    transform: translateX(-100%);
+}
+
+.curtain.right.hide{
+    transform: translateX(100%);
+}
+
+.curtain-stripe {
+    background-color:red;
+    flex:1;
+    height: calc(100% - 50px);
+    box-shadow: 5px 5px 29px -9px #000000;
+    position: relative;
+
+}
+
+.curtain-stripe::after{
+    content:'';
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    background-color:red;
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:50px;
+    transform: translateY(50px);
+}
