@@ -1,0 +1,52 @@
+{
+    "id": "9dVs6A3shMBZvmS3IiiG",
+    "name": "hello doc",
+    "content": [
+        {
+            "type": "snippet",
+            "lines": [
+                " function hideModal(){",
+                "     document.getElementById(\"modal\").style.display = \"none\";",
+                " }",
+                "*function showModal(){",
+                "*    document.getElementById(\"modal\").style.display = \"flex\";",
+                "*}",
+                " ",
+                " function createCharacters(comments) {",
+                "     const stage = document.getElementById(\"charecters\");"
+            ],
+            "firstLineNumber": 5,
+            "path": "public/js/main.js",
+            "comments": []
+        },
+        {
+            "type": "snippet",
+            "lines": [
+                "         }",
+                "     }",
+                " }",
+                "*function play(title, comments) {",
+                "*    showTitle(title);",
+                "*    setTimeout(function(){",
+                "*        hideCurtains();",
+                "*        playComment(comments, 0)",
+                "*    },2000)",
+                "*}",
+                " ",
+                " function hideCurtains(){",
+                "     let curtains = document.getElementsByClassName(\"curtain\");"
+            ],
+            "firstLineNumber": 33,
+            "path": "public/js/main.js",
+            "comments": []
+        }
+    ],
+    "symbols": {},
+    "file_version": "2.0.1",
+    "meta": {
+        "app_version": "0.4.7-0",
+        "file_blobs": {
+            "public/js/main.js": "f64bb8ebb807e87b084da264f4bd71cb2034232d"
+        }
+    }
+}
